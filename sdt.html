@@ -1,0 +1,34 @@
+<form method="post">
+  <label for="number_count">Enter the number of phone numbers you want to generate:</label><br>
+  <input type="number" id="number_count" name="number_count"><br>
+  <input type="submit" value="Generate">
+</form>
+
+<script>
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const numberCount = form.elements.number_count.value;
+    const prefixes = [
+      '086', '096', '097', '098', '039', '038', '037', '036', '035', '034', '033', '032',
+      '091', '094', '088', '083', '084', '085', '081', '082', '070', '079', '077', '076',
+      '078', '089', '090', '093', '092', '052', '056', '058', '099', '059'
+    ];
+
+    const numbers = [];
+
+    for (let i = 0; i < numberCount; i++) {
+      const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const number = prefix + Math.floor(1000000 + Math.random() * 9999999);
+      numbers.push(number);
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.rows = 10;
+    textarea.cols = 50;
+    textarea.value = numbers.join('\n');
+    form.appendChild(textarea);
+  });
+</script>
